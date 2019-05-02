@@ -38,6 +38,9 @@ OptionParser.new do |opts|
   opts.on('-x', '--crontab-command [command]', 'Default: crontab') do |crontab_command|
     options[:crontab_command] = crontab_command if crontab_command
   end
+  opts.on('-o', '--format [format]', 'Default: cron') do |format|
+    options[:output_format] = format.to_sym if format
+  end
   opts.on('-v', '--version') { puts "Whenever v#{Whenever::VERSION}"; exit(0) }
 end.parse!
 

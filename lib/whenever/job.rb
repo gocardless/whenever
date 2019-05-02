@@ -27,6 +27,8 @@ module Whenever
       roles.empty? || roles.include?(role)
     end
 
+    attr_reader :options
+
   protected
 
     def process_template(template, options)

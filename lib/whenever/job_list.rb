@@ -9,6 +9,9 @@ module Whenever
         options = { :string => options }
       end
 
+      # One of [:crontab, :yaml]
+      @output_format = options.fetch(:output_format, :crontab)
+
       pre_set(options[:set])
 
       @roles = options[:roles] || []
@@ -72,7 +75,12 @@ module Whenever
     end
 
     def generate_cron_output
-      [environment_variables, cron_jobs].compact.join
+      case @output_format
+      when :yaml
+        Whenever::Output::Yaml.output(@jobs)
+      else
+        [environment_variables, cron_jobs].compact.join
+      end
     end
 
   private
